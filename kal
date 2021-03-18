@@ -1,0 +1,227 @@
+#include<iostream>
+#include<ctime>
+#include<fstream>
+#include<string>
+#include<sstream>
+
+void cons_cons()
+{
+	int n, chain = 1;
+	while (true)
+	{
+		std::cout << "Чтобы вычислить значение последовательности, пожалуйста, " <<
+			"выберите количество чисел n в этой последовательности " <<
+			"(n не меньше 3): ";
+		std::cin >> n;
+		if (std::cin.fail())
+		{
+			std::cin.clear();
+			std::cin.ignore(32767, '\n');
+			std::cout << "Ошибка!" << std::endl;
+			continue;
+		}
+		if (n < 3)
+		{
+			std::cout << "Ошибка! Введите n, которое будет больше-равно 3!" << std::endl;
+			continue;
+		}
+		std::cin.clear();
+		std::cin.ignore(32667, '\n');
+		break;
+	}
+	srand(time(NULL));
+
+	int* arr_num1 = new int[n];
+
+	for (int i = 0; i < n; i++)
+	{
+		arr_num1[i] = rand() % 100;
+		std::cout << "Значение [" << i + 1 << "] элемента последовательности = " << arr_num1[i] << std::endl;
+	}
+	while (--n >= 2)
+	{
+		chain *= arr_num1[n - 2] + 2 * arr_num1[n - 1] + arr_num1[n];
+	}
+	std::cout << "Значение последовательности = " << chain << std::endl;
+}
+
+void cons_txt()
+{
+	int n, chain = 1;
+	while (true)
+	{
+		std::cout << "Чтобы вычислить значение последовательности, пожалуйста, " <<
+			"выберите количество чисел n в этой последовательности " <<
+			"(n не меньше 3): ";
+		std::cin >> n;
+		if (std::cin.fail())
+		{
+			std::cin.clear();
+			std::cin.ignore(32767, '\n');
+			std::cout << "Ошибка!" << std::endl;
+			continue;
+		}
+		if (n < 3)
+		{
+			std::cout << "Ошибка! Введите n, которое будет больше-равно 3!" << std::endl;
+			continue;
+		}
+		std::cin.clear();
+		std::cin.ignore(32667, '\n');
+		break;
+	}
+	srand(time(NULL));
+
+	int* arr_num1 = new int[n];
+
+	std::ofstream out;
+	out.open("C:\\in and out\\out.txt");
+	if (out.is_open())
+	{
+		for (int i = 0; i < n; i++)
+		{
+			arr_num1[i] = rand() % 100;
+			out << "Значение [" << i + 1 << "] элемента последовательности = " << arr_num1[i] << std::endl;
+		}
+		while (--n >= 2)
+		{
+			chain *= arr_num1[n - 2] + 2 * arr_num1[n - 1] + arr_num1[n];
+		}
+		out << "Значение последовательности = " << chain << std::endl;
+	}
+}
+
+void txt_cons()
+{
+	std::string n;
+	int z, chain = 1;
+
+	std::ifstream in("C:\\in and out\\in.txt");
+	if (in.is_open())
+	{
+		while (getline(in, n))
+		{
+			std::cout << "В файле находится число " << n << std::endl;
+		}
+	}
+	in.close();
+
+	std::istringstream(n) >> z;
+	srand(time(NULL));
+
+	int* arr_num1 = new int[z];
+	for (int i = 0; i < z; i++)
+	{
+		arr_num1[i] = rand() % 100;
+		std::cout << "Значение [" << i + 1 << "] элемента последовательности = " << arr_num1[i] << std::endl;
+	}
+	while (--z >= 2)
+	{
+		chain *= arr_num1[z - 2] + 2 * arr_num1[z - 1] + arr_num1[z];
+	}
+	std::cout << "Значение последовательности = " << chain << std::endl;
+}
+
+void txt_txt()
+{
+	std::string n;
+	int z, chain = 1;
+
+	std::ifstream in("C:\\in and out\\in.txt");
+	if (in.is_open())
+	{
+		while (std::getline(in, n))
+		{
+			std::cout << "В файле находится число " << n << std::endl;
+		}
+	}
+	in.close();
+
+	std::istringstream(n) >> z;
+	srand(time(NULL));
+
+	int* arr_num1 = new int[z];
+
+	std::ofstream out;
+	out.open("C:\\in and out\\out.txt");
+	if (out.is_open())
+	{
+		for (int i = 0; i < z; i++)
+		{
+			arr_num1[i] = rand() % 100;
+			out << "Значение [" << i + 1 << "] элемента последовательности = " << arr_num1[i] << std::endl;
+		}
+		while (--z >= 2)
+		{
+			chain *= arr_num1[z - 2] + 2 * arr_num1[z - 1] + arr_num1[z];
+		}
+		out << "Значение последовательности = " << chain << std::endl;
+	}
+	std::cout << "Для просмотра ответа перейдите в файл C:\\in and out\\out.txt" << std::endl;
+}
+
+int main()
+{
+	setlocale(LC_ALL, "ru");
+
+	int in_and_out_lab1, x;
+
+	std::cout << "Для начала работы программы, пожалуйста, " <<
+		"выберите вариант ввода-вывода данных\n\n";
+	
+	std::cout << "Ввод и вывод:" << std::endl <<
+		"Консоль-Консоль - 00" << std::endl <<
+		"Консоль-Файл - 01" << std::endl <<
+		"Файл-Консоль - 10" << std::endl <<
+		"Файл-Файл - 11" << std::endl;
+	std::cout << "Ваш вариант: "; std::cin >> in_and_out_lab1;
+
+	switch (in_and_out_lab1)
+	{
+	case 00:
+		cons_cons();
+		std::cout << "Хотите повторить ввод исходных данных? Да - 1, Нет - 0." << std::endl; std::cin >> x;
+		while (true)
+		{
+			if (x == 1)
+			{
+				main();
+			}
+			else if (x == 0)
+			{
+				break;
+			}
+			else
+			{
+				if (std::cin.fail())
+				{
+					std::cin.clear();
+					std::cin.ignore(32767, '\n');
+					std::cout << "Вы ввели недопустимый символ. Повторите попытку." << std::endl;
+					std::cout << "Хотите повторить ввод исходных данных? Да - 1, Нет - 0." << std::endl; std::cin >> x;
+				}
+				else
+				{
+					std::cin.ignore(32767, '\n');
+					std::cout << "Вы ввели недопустимый символ. Повторите попытку." << std::endl;
+					std::cout << "Хотите повторить ввод исходных данных? Да - 1, Нет - 0." << std::endl; std::cin >> x;
+				}
+
+			}
+		}
+		break;
+	case 01:
+		cons_txt();
+		break;
+	case 10:
+		txt_cons();
+		break;
+	case 11:
+		txt_txt();
+		break;
+	default:
+			main();
+			break;
+	}
+	return 0;
+}	
